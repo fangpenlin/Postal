@@ -12,6 +12,7 @@ Pod::Spec.new do |s|
 
   s.source = { :git => 'git@github.com:readdle/Postal.git', :tag => 'v' + s.version.to_s }
 
+  s.module_name = 'Postal'
   s.default_subspec = 'Core'
 
   s.subspec 'Core' do |sp|
