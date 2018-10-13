@@ -31,6 +31,6 @@ Pod::Spec.new do |s|
   s.ios.vendored_libraries = 'dependencies/build/ios/lib/libetpan.a'
   s.osx.vendored_libraries = 'dependencies/build/macos/lib/libetpan.a'
 
-  s.dependency 'Result', '~> 3.2'
+  s.dependency 'Result', '~> 4.0'
 
 end
