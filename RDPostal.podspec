@@ -15,7 +15,6 @@ Pod::Spec.new do |s|
   s.default_subspec = 'Core'
 
   s.subspec 'Core' do |sp|
-    sp.module_name = 'Postal'
     sp.source_files  = 'Postal/*.{swift,h}'
 
     sp.pod_target_xcconfig = {
