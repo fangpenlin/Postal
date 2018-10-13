@@ -83,6 +83,22 @@ public extension Postal {
         }
     }
     
+    func rac_fetch(_ folder: String, last: UInt, flags: FetchFlag, extraHeaders: Set<String> = []) -> SignalProducer<FetchResult, PostalError> {
+        return SignalProducer<FetchResult, PostalError> { observer, disposable in
+            self.fetchLast(folder, last: last, flags: flags,
+                               onMessage: { message in
+                                observer.send(value: message)
+            }, onComplete: { error in
+                if let error = error {
+                    observer.send(error: error)
+                }
+                else {
+                    observer.sendCompleted()
+                }
+            })
+        }
+    }
+    
     func rac_fetch(folder: String, uids: IndexSet, flags: FetchFlag, extraHeaders: Set<String> = []) -> SignalProducer<FetchResult, PostalError> {
         return SignalProducer<FetchResult, PostalError> { observer, disposable in
             self.fetchMessages(folder, uids: uids, flags: flags, extraHeaders: extraHeaders,
