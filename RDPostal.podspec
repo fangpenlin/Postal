@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = '10.12'
 
   s.source = { :git => 'git@github.com:readdle/Postal.git', :tag => 'v' + s.version.to_s }
-  
+
   s.default_subspec = 'Core'
 
   s.subspec 'Core' do |sp|
@@ -39,7 +39,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'ReactiveSwift' do |sp|
     sp.source_files = 'Postal/ReactiveSwift/*.swift'
-    sp.dependency 'Postal/Core'
+    sp.dependency 'RDPostal/Core'
     sp.dependency 'ReactiveSwift', '~> 4.0'
   end
 end
