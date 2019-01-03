@@ -74,6 +74,16 @@ public extension Postal {
 // MARK: - Folders
 
 public extension Postal {
+    /// Select a folder
+    ///
+    /// - parameters:
+    ///     - folder: The folder to select
+    ///     - completion: The completion handler to call when the request succeed or failed.
+    func selectFolder(_ folder: String, _ completion: @escaping (Result<IMAPFolderInfo, PostalError>) -> ()) {
+        doAsync({
+            try self.session.select(folder)
+        }, completion: completion)
+    }
     
     /// Retrieve list folders on the server
     ///
