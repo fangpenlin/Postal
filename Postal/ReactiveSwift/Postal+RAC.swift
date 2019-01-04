@@ -38,6 +38,19 @@ public extension Postal {
         }
     }
     
+    func rac_selectFolder(folder: String) -> SignalProducer<IMAPFolderInfo, PostalError> {
+        return SignalProducer { observer, disposable in
+            self.selectFolder(folder: folder) { result in
+                result.analysis(
+                    ifSuccess: {
+                        observer.send(value: result)
+                        observer.sendCompleted()
+                },
+                    ifFailure: observer.send)
+            }
+        }
+    }
+    
     func rac_listFolders() -> SignalProducer<[Folder], PostalError> {
         return SignalProducer { observer, disposable in
             self.listFolders { result in
