@@ -40,7 +40,7 @@ public extension Postal {
     
     func rac_selectFolder(folder: String) -> SignalProducer<IMAPFolderInfo, PostalError> {
         return SignalProducer { observer, disposable in
-            self.selectFolder(folder: folder) { result in
+            self.selectFolder(folder) { result in
                 result.analysis(
                     ifSuccess: {
                         observer.send(value: result)

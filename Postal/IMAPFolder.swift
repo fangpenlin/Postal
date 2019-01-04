@@ -35,7 +35,9 @@ public struct Folder {
 
 // MARK: -
 
-struct IMAPFolderInfo {
+// Notice: make it public so select folder can return it, maybe need a
+// better wrap up?
+public struct IMAPFolderInfo {
     let uidNext: UInt
     let uidValidity: UInt
     let firstUnseenUid: UInt
