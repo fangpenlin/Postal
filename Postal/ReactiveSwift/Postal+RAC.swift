@@ -42,8 +42,8 @@ public extension Postal {
         return SignalProducer { observer, disposable in
             self.selectFolder(folder) { result in
                 result.analysis(
-                    ifSuccess: {
-                        observer.send(value: result)
+                    ifSuccess: { info in
+                        observer.send(value: info)
                         observer.sendCompleted()
                 },
                     ifFailure: observer.send)

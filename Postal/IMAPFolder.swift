@@ -62,7 +62,7 @@ extension IMAPFolderInfo {
 }
 
 extension IMAPFolderInfo: CustomStringConvertible {
-    var description: String {
+    public var description: String {
         return "IMAPFolderInfo(\n"
             + "uidNext: \(uidNext),\n"
             + "uidValidity: \(uidValidity),\n"
