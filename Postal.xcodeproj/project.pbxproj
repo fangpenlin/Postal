@@ -11,8 +11,6 @@
 		24532F302105D5D2008D68C7 /* IMAPSession+Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24532F2E2105D5D2008D68C7 /* IMAPSession+Flags.swift */; };
 		24B68A2F210615E100803904 /* IMAPSession+Import.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B68A2E210615E100803904 /* IMAPSession+Import.swift */; };
 		24B68A30210615E100803904 /* IMAPSession+Import.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B68A2E210615E100803904 /* IMAPSession+Import.swift */; };
-		783607AC21DF0AF8001E4511 /* Postal+RAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783607AB21DF0AF8001E4511 /* Postal+RAC.swift */; };
-		783607AD21DF0AF8001E4511 /* Postal+RAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783607AB21DF0AF8001E4511 /* Postal+RAC.swift */; };
 		980745411D63311D0021D60F /* IMAPSession+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980745401D63311D0021D60F /* IMAPSession+List.swift */; };
 		980745421D6331AC0021D60F /* IMAPSession+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980745401D63311D0021D60F /* IMAPSession+List.swift */; };
 		9812C31F1D50959500630D46 /* Postal.h in Headers */ = {isa = PBXBuildFile; fileRef = 9812C31E1D50959500630D46 /* Postal.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -168,7 +166,6 @@
 /* Begin PBXFileReference section */
 		24532F2E2105D5D2008D68C7 /* IMAPSession+Flags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IMAPSession+Flags.swift"; sourceTree = "<group>"; };
 		24B68A2E210615E100803904 /* IMAPSession+Import.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IMAPSession+Import.swift"; sourceTree = "<group>"; };
-		783607AB21DF0AF8001E4511 /* Postal+RAC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Postal+RAC.swift"; path = "ReactiveSwift/Postal+RAC.swift"; sourceTree = "<group>"; };
 		980745401D63311D0021D60F /* IMAPSession+List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IMAPSession+List.swift"; sourceTree = "<group>"; };
 		9812C31C1D50959500630D46 /* Postal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Postal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9812C31E1D50959500630D46 /* Postal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Postal.h; sourceTree = "<group>"; };
@@ -273,14 +270,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		783607A821DF0ABD001E4511 /* ReactiveSwift */ = {
-			isa = PBXGroup;
-			children = (
-				783607AB21DF0AF8001E4511 /* Postal+RAC.swift */,
-			);
-			name = ReactiveSwift;
-			sourceTree = "<group>";
-		};
 		9807453F1D6331020021D60F /* Session */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,7 +454,6 @@
 				F75DD5531D4BB22C00D40E9C /* IMAP */,
 				F75DD5501D4BB19500D40E9C /* Utils */,
 				F75DD5511D4BB1F800D40E9C /* Postal */,
-				783607A821DF0ABD001E4511 /* ReactiveSwift */,
 			);
 			path = Postal;
 			sourceTree = "<group>";
@@ -682,7 +670,6 @@
 				9812C3411D509B6C00630D46 /* Postal.swift in Sources */,
 				9812C3251D509B5300630D46 /* Logger.swift in Sources */,
 				9812C32E1D509B6400630D46 /* MessageAttribute+Parsing.swift in Sources */,
-				783607AD21DF0AF8001E4511 /* Postal+RAC.swift in Sources */,
 				9812C33A1D509B6400630D46 /* IMAPSession+Fetch.swift in Sources */,
 				F7E884A71D59C7F500D02CC2 /* PostalError.swift in Sources */,
 				9812C33B1D509B6400630D46 /* IMAPSession+Search.swift in Sources */,
@@ -737,7 +724,6 @@
 				F7F03C7B1D4BA5A90083397F /* ContentDisposition+Parsing.swift in Sources */,
 				F7F03C7C1D4BA5A90083397F /* ContentEncoding+Parsing.swift in Sources */,
 				F7F03EAC1D4BA5A90083397F /* Message+Parsing.swift in Sources */,
-				783607AC21DF0AF8001E4511 /* Postal+RAC.swift in Sources */,
 				F7F03EAE1D4BA5A90083397F /* MessageFlags+Parsing.swift in Sources */,
 				F7E884A61D59C7F500D02CC2 /* PostalError.swift in Sources */,
 				F7F03EB61D4BA5A90083397F /* Util.swift in Sources */,
