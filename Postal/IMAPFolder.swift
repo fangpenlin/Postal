@@ -38,13 +38,13 @@ public struct Folder {
 // Notice: make it public so select folder can return it, maybe need a
 // better wrap up?
 public struct IMAPFolderInfo {
-    let uidNext: UInt
-    let uidValidity: UInt
-    let firstUnseenUid: UInt
-    let messagesCount: UInt
-    let recentCount: UInt
-    let unseenCount: UInt
-    let allowflags: Bool
+    public let uidNext: UInt
+    public let uidValidity: UInt
+    public let firstUnseenUid: UInt
+    public let messagesCount: UInt
+    public let recentCount: UInt
+    public let unseenCount: UInt
+    public let allowflags: Bool
 }
 
 extension IMAPFolderInfo {
