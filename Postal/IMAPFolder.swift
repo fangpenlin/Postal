@@ -30,7 +30,7 @@ public struct Folder {
     public let name: String
     public let flags: FolderFlag
     
-    let delimiter: String
+    public let delimiter: String
 }
 
 // MARK: -
