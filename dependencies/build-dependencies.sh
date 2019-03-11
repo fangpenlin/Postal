@@ -5,8 +5,8 @@ scriptpath="`pwd`"
 popd > /dev/null
 
 # configuration
-url="https://github.com/snipsco/libetpan.git"
-rev=6a08017f1c742f0c5817d6c1c71143a37da967be
+url="https://github.com/fangpenlin/libetpan.git"
+rev=27d6f41d3bdfd9178ad309bd0ece7aaaabbaceb1
 
 ios_target="libetpan ios"
 macos_target="static libetpan"
@@ -21,7 +21,7 @@ name="libetpan"
 ios_library="libetpan-ios.a"
 ios_simarchs="i386 x86_64"
 ios_devicearchs="armv7 armv7s arm64"
-ios_sdkminversion="7.0"
+ios_sdkminversion="8.0"
 ios_sdkversion="`xcodebuild -showsdks 2>/dev/null | grep iphoneos | sed 's/.*iphoneos\(.*\)/\1/'`"
 
 macos_library="libetpan.a"
