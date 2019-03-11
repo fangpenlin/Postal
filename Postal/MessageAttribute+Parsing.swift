@@ -102,7 +102,13 @@ extension mailimap_msg_att_dynamic {
         guard att_list?.pointee != nil else { return nil }
         
         let flags: MessageFlag = sequence(att_list, of: mailimap_flag_fetch.self).reduce([]) { combined, flagFetch in
-            guard flagFetch.fl_type != Int32(MAILIMAP_FLAG_FETCH_OTHER) else { return combined }
+            // Notice: the original code was
+            //
+            //     guard flagFetch.fl_type != Int32(MAILIMAP_FLAG_FETCH_OTHER)
+            //
+            // But that seems like a bug to me. I guess we want to get the flag
+            // details if it's "other"
+            guard flagFetch.fl_type == Int32(MAILIMAP_FLAG_FETCH_OTHER) else { return combined }
             guard let flag = flagFetch.fl_flag?.pointee else { return combined }
             
             return [ combined, flag.toMessageFlag ]
