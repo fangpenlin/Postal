@@ -151,16 +151,13 @@ private class FetchContext {
 }
 
 extension IMAPSession {
-    func fetchLast(_ folder: String, last: UInt, flags: FetchFlag, extraHeaders: Set<String> = [], descending: Bool = false, handler: @escaping (FetchResult) -> Void) throws {
+    func fetchLast(_ folder: String, last: UInt, flags: FetchFlag, extraHeaders: Set<String> = [], handler: @escaping (FetchResult) -> Void) throws {
         let info = try select(folder)
         
         let location: Int = Int(info.messagesCount > last ? ((Int(info.messagesCount) - Int(last)) + 1) : 1)
         let length: Int = Int(info.messagesCount > last ? last : info.messagesCount)
         
-        var indexSet = IndexSet(location..<(location+length))
-        if descending {
-            indexSet = indexSet.reversed()
-        }
+        let indexSet = IndexSet(location..<(location+length))
         
         try fetchMessages(folder, set: .indexes(indexSet), flags: flags, extraHeaders: extraHeaders, handler: handler)
     }
