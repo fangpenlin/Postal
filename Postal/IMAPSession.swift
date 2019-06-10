@@ -207,8 +207,8 @@ final class IMAPSession {
         }
     }
     
-    @discardableResult func select(_ folder: String) throws -> IMAPFolderInfo {
-        if folder != selectedFolder {
+    @discardableResult func select(_ folder: String, forceSelect: Bool = false) throws -> IMAPFolderInfo {
+        if folder != selectedFolder || forceReselect {
             try mailimap_select(imap, folder).toIMAPError?.check()
         }
         
