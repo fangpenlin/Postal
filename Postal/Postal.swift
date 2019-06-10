@@ -31,7 +31,7 @@ open class Postal {
     fileprivate let queue: OperationQueue
     fileprivate let configuration: Configuration
     
-    var capabilities: IMAPCapability {
+    public var capabilities: IMAPCapability {
         return session.capabilities
     }
 
