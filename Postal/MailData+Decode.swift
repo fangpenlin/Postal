@@ -97,18 +97,11 @@ extension Data {
                     if !partial { // not partial, just decode remaining bytes
                         accumulator.append(data.uudecodedLine)
                         return (decoded: accumulator as Data, remaining: nil)
-<<<<<<< HEAD
-                    }
-                    else { // partial, return remaining bytes as remaining
-                        let remainingBytesCopy: Data = data.withUnsafeBytes { (bytes: UnsafePointer<Int8>) in
-                            return Data(bytes: bytes, count: data.count) // force copy of remaining data
-=======
                     } else { // partial, return remaining bytes as remaining
                         let remainingBytesCopy: Data = data.withUnsafeBytes { unsafeRawBufferPointer in
                             let unsafeBufferPointer = unsafeRawBufferPointer.bindMemory(to: Int8.self)
 
                             return Data(bytes: unsafeBufferPointer.baseAddress!, count: data.count) // force copy of remaining data
->>>>>>> upstream/master
                         }
                         return (decoded: accumulator as Data, remaining: remainingBytesCopy)
                     }
