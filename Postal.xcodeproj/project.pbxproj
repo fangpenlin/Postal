@@ -11,6 +11,7 @@
 		24532F302105D5D2008D68C7 /* IMAPSession+Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24532F2E2105D5D2008D68C7 /* IMAPSession+Flags.swift */; };
 		24B68A2F210615E100803904 /* IMAPSession+Import.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B68A2E210615E100803904 /* IMAPSession+Import.swift */; };
 		24B68A30210615E100803904 /* IMAPSession+Import.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B68A2E210615E100803904 /* IMAPSession+Import.swift */; };
+		781BA3F122F6655400270545 /* IMAPSession+Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781BA3F022F6655400270545 /* IMAPSession+Copy.swift */; };
 		980745411D63311D0021D60F /* IMAPSession+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980745401D63311D0021D60F /* IMAPSession+List.swift */; };
 		980745421D6331AC0021D60F /* IMAPSession+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980745401D63311D0021D60F /* IMAPSession+List.swift */; };
 		9812C31F1D50959500630D46 /* Postal.h in Headers */ = {isa = PBXBuildFile; fileRef = 9812C31E1D50959500630D46 /* Postal.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -156,6 +157,7 @@
 /* Begin PBXFileReference section */
 		24532F2E2105D5D2008D68C7 /* IMAPSession+Flags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IMAPSession+Flags.swift"; sourceTree = "<group>"; };
 		24B68A2E210615E100803904 /* IMAPSession+Import.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IMAPSession+Import.swift"; sourceTree = "<group>"; };
+		781BA3F022F6655400270545 /* IMAPSession+Copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IMAPSession+Copy.swift"; sourceTree = "<group>"; };
 		980745401D63311D0021D60F /* IMAPSession+List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IMAPSession+List.swift"; sourceTree = "<group>"; };
 		9812C31C1D50959500630D46 /* Postal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Postal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9812C31E1D50959500630D46 /* Postal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Postal.h; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 		9807453F1D6331020021D60F /* Session */ = {
 			isa = PBXGroup;
 			children = (
+				781BA3F022F6655400270545 /* IMAPSession+Copy.swift */,
 				F7F03A041D4BA5A70083397F /* IMAPSession+Fetch.swift */,
 				F7F03A051D4BA5A70083397F /* IMAPSession+Search.swift */,
 				F77337291D60FF610015A1D4 /* IMAPSession+Move.swift */,
@@ -706,6 +709,7 @@
 			files = (
 				F7F03C7B1D4BA5A90083397F /* ContentDisposition+Parsing.swift in Sources */,
 				F7F03C7C1D4BA5A90083397F /* ContentEncoding+Parsing.swift in Sources */,
+				781BA3F122F6655400270545 /* IMAPSession+Copy.swift in Sources */,
 				F7F03EAC1D4BA5A90083397F /* Message+Parsing.swift in Sources */,
 				F7F03EAE1D4BA5A90083397F /* MessageFlags+Parsing.swift in Sources */,
 				F7E884A61D59C7F500D02CC2 /* PostalError.swift in Sources */,
