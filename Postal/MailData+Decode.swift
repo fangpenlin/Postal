@@ -50,17 +50,23 @@ extension Data {
         var decodedBytes: UnsafeMutablePointer<Int8>? = nil
         var decodedLength: Int = 0
         let decodeFunc = partial ? mailmime_part_parse_partial : mailmime_part_parse
-        
-        _ = withUnsafeBytes { (bytes: UnsafePointer<Int8>) in
-            decodeFunc(bytes, count, &curToken, Int32(mechanism), &decodedBytes, &decodedLength)
+
+        let _: Int32 = withUnsafeBytes { unsafeRawBufferPointer in
+            let unsafeBufferPointer = unsafeRawBufferPointer.bindMemory(to: Int8.self)
+            let unsafePointer = unsafeBufferPointer.baseAddress!
+            
+            return decodeFunc(unsafePointer, count, &curToken, Int32(mechanism), &decodedBytes, &decodedLength)
         }
         
         let decodedData = Data(bytesNoCopy: UnsafeMutableRawPointer(decodedBytes!), count: decodedLength, deallocator: .free)
         
         let remaining: Data?
         if decodedLength < count {
-            remaining = withUnsafeBytes { bytes in
-               Data(bytes: UnsafeRawPointer(bytes + curToken), count: count - curToken)
+            remaining = withUnsafeBytes { unsafeRawBufferPointer in
+                let unsafeBufferPointer = unsafeRawBufferPointer.bindMemory(to: Int8.self)
+                let unsafePointer = unsafeBufferPointer.baseAddress!
+
+                return Data(bytes: UnsafeRawPointer(unsafePointer + curToken), count: count - curToken)
             }
         }
         else {
@@ -74,8 +80,10 @@ extension Data {
     }
     
     func uudecode(partial: Bool) -> (decoded: Data, remaining: Data?) {
-        return withUnsafeBytes { (bytes: UnsafePointer<Int8>) in
-            var currentPosition = bytes
+        return withUnsafeBytes { unsafeRawBufferPointer in
+            let unsafeBufferPointer = unsafeRawBufferPointer.bindMemory(to: Int8.self)
+
+            var currentPosition = unsafeBufferPointer.baseAddress!
             let accumulator = NSMutableData()
             
             while true {
@@ -89,10 +97,18 @@ extension Data {
                     if !partial { // not partial, just decode remaining bytes
                         accumulator.append(data.uudecodedLine)
                         return (decoded: accumulator as Data, remaining: nil)
+<<<<<<< HEAD
                     }
                     else { // partial, return remaining bytes as remaining
                         let remainingBytesCopy: Data = data.withUnsafeBytes { (bytes: UnsafePointer<Int8>) in
                             return Data(bytes: bytes, count: data.count) // force copy of remaining data
+=======
+                    } else { // partial, return remaining bytes as remaining
+                        let remainingBytesCopy: Data = data.withUnsafeBytes { unsafeRawBufferPointer in
+                            let unsafeBufferPointer = unsafeRawBufferPointer.bindMemory(to: Int8.self)
+
+                            return Data(bytes: unsafeBufferPointer.baseAddress!, count: data.count) // force copy of remaining data
+>>>>>>> upstream/master
                         }
                         return (decoded: accumulator as Data, remaining: remainingBytesCopy)
                     }
@@ -102,7 +118,10 @@ extension Data {
     }
     
     var uudecodedLine: Data {
-        return withUnsafeBytes { (bytes: UnsafePointer<Int8>) in
+        return withUnsafeBytes { unsafeRawBufferPointer in
+            let unsafeBufferPointer = unsafeRawBufferPointer.bindMemory(to: Int8.self)
+            let bytes = unsafeBufferPointer.baseAddress!
+            
             var current = bytes
             let end = current + count
             let leadingCount = Int((current[0] & 0x7f) - 0x20)
@@ -140,7 +159,10 @@ extension Data {
     }
     
     func getLine(_ from: UnsafePointer<CChar>) -> (data: Data, next: UnsafePointer<CChar>?) {
-        return withUnsafeBytes { (bytes: UnsafePointer<Int8>) in
+        return withUnsafeBytes { unsafeRawBufferPointer in
+            let unsafeBufferPointer = unsafeRawBufferPointer.bindMemory(to: Int8.self)
+            let bytes = unsafeBufferPointer.baseAddress!
+
             let from = UnsafeMutablePointer(mutating: from)
             let bufferStart = UnsafeMutablePointer(mutating: bytes)
             
