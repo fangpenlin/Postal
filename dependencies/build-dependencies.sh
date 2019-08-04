@@ -5,8 +5,8 @@ scriptpath="`pwd`"
 popd > /dev/null
 
 # configuration
-url="https://github.com/dinhviethoa/libetpan.git"
-rev=4aee22436809af67f23170fe15106b91ff2971e6
+url="https://github.com/fangpenlin/libetpan.git"
+rev=02fe6f85729f469b587722447d0c223447e86e84
 
 ios_target="libetpan ios"
 macos_target="static libetpan"
