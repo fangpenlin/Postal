@@ -3,7 +3,7 @@
 #if WIN32
 # define MMAP_UNAVAILABLE
 #endif
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(__cplusplus)
 # define inline __inline
 #endif
 #include <limits.h>

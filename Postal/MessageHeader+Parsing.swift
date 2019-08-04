@@ -166,11 +166,17 @@ private extension Date {
         }
         
         var imapDateTime: UnsafeMutablePointer<mailimap_date_time>? = nil
-        if mailimap_hack_date_time_parse(envelopeDate, &imapDateTime, 0, nil).toIMAPError == nil {
-            defer { mailimap_date_time_free(imapDateTime) }
-            return imapDateTime?.pointee.date
+        var result: Date? = envelopeDate.withCString {
+            if mailimap_hack_date_time_parse(UnsafeMutablePointer(mutating: $0), &imapDateTime, 0, nil).toIMAPError == nil {
+                defer { mailimap_date_time_free(imapDateTime) }
+                return imapDateTime?.pointee.date
+            }
+            return nil
         }
-        
+        if let date = result {
+            return date
+        }
+
         return nil
     }
 }

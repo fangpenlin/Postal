@@ -121,6 +121,9 @@ extern "C" {
 #include <libetpan/mailprivacy_gnupg.h>
 #include <libetpan/mailprivacy_smime.h>
 
+/* utils */
+#include <libetpan/mailimap_parser.h>
+
 #ifdef __cplusplus
 }
 #endif
