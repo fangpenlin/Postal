@@ -291,10 +291,6 @@ extension IMAPSession {
         var results: UnsafeMutablePointer<clist>? = nil
         try mailimap_uid_fetch(imap, imapSet, attList, &results).toIMAPError?.check()
         do { mailimap_fetch_list_free(results) }
-        
-        if !context.called {
-            throw PostalError.parse;
-        }
     }
 }
 
