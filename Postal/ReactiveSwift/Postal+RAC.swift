@@ -28,12 +28,13 @@ public extension Postal {
     func rac_connect() -> SignalProducer<Void, PostalError> {
         return SignalProducer { observer, disposable in
             self.connect(timeout: Postal.defaultTimeout) { result in
-                result.analysis(
-                    ifSuccess: {
-                        observer.send(value: ())
-                        observer.sendCompleted()
-                },
-                    ifFailure: observer.send)
+                switch result {
+                case .success:
+                    observer.send(value: ())
+                    observer.sendCompleted()
+                case let .failure(error):
+                    observer.send(error: error)
+                }
             }
         }
     }
@@ -41,12 +42,13 @@ public extension Postal {
     func rac_selectFolder(folder: String) -> SignalProducer<IMAPFolderInfo, PostalError> {
         return SignalProducer { observer, disposable in
             self.selectFolder(folder) { result in
-                result.analysis(
-                    ifSuccess: { info in
-                        observer.send(value: info)
-                        observer.sendCompleted()
-                },
-                    ifFailure: observer.send)
+                switch result {
+                case let .success(info):
+                    observer.send(value: info)
+                    observer.sendCompleted()
+                case let .failure(error):
+                    observer.send(error: error)
+                }
             }
         }
     }
@@ -54,12 +56,13 @@ public extension Postal {
     func rac_listFolders() -> SignalProducer<[Folder], PostalError> {
         return SignalProducer { observer, disposable in
             self.listFolders { result in
-                result.analysis(
-                    ifSuccess: { folders in
-                        observer.send(value: folders)
-                        observer.sendCompleted()
-                },
-                    ifFailure: observer.send)
+                switch result {
+                case let .success(folders):
+                    observer.send(value: folders)
+                    observer.sendCompleted()
+                case let .failure(error):
+                    observer.send(error: error)
+                }
             }
         }
     }
@@ -76,7 +79,7 @@ public extension Postal {
                     return inboxFolder.name
                 }
                 return "INBOX"
-            }
+        }
     }
     
     func rac_search(folder: String, filter: SearchKind) -> SignalProducer<IndexSet, PostalError> {
@@ -86,12 +89,13 @@ public extension Postal {
     func rac_search(folder: String, filter: SearchFilter) -> SignalProducer<IndexSet, PostalError> {
         return SignalProducer { observer, disposable in
             self.search(folder, filter: filter) { result in
-                result.analysis(
-                    ifSuccess: { uids in
-                        observer.send(value: uids)
-                        observer.sendCompleted()
-                },
-                    ifFailure: observer.send)
+                switch result {
+                case let .success(uids):
+                    observer.send(value: uids)
+                    observer.sendCompleted()
+                case let .failure(error):
+                    observer.send(error: error)
+                }
             }
         }
     }
@@ -99,8 +103,8 @@ public extension Postal {
     func rac_fetch(_ folder: String, last: UInt, flags: FetchFlag, extraHeaders: Set<String> = []) -> SignalProducer<FetchResult, PostalError> {
         return SignalProducer<FetchResult, PostalError> { observer, disposable in
             self.fetchLast(folder, last: last, flags: flags,
-                               onMessage: { message in
-                                observer.send(value: message)
+                           onMessage: { message in
+                            observer.send(value: message)
             }, onComplete: { error in
                 if let error = error {
                     observer.send(error: error)
