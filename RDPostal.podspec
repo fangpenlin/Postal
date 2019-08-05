@@ -15,18 +15,18 @@ Pod::Spec.new do |s|
   s.default_subspec = 'Core'
 
   s.subspec 'Core' do |sp|
-    s.source_files  = 'Postal/*.{swift,h}'
-    s.preserve_paths = 'dependencies'
+    sp.source_files  = 'Postal/*.{swift,h}'
+    sp.preserve_paths = 'dependencies'
   
-    s.pod_target_xcconfig = {
+    sp.pod_target_xcconfig = {
       'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) NO_MACROS=1'
     }
-    s.ios.pod_target_xcconfig = {
+    sp.ios.pod_target_xcconfig = {
       'SWIFT_INCLUDE_PATHS' => '"$(SRCROOT)/Postal/dependencies" "$(SRCROOT)/Postal/dependencies/build/ios/include"',
       'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Postal/dependencies/build/ios/lib"',
       'HEADER_SEARCH_PATHS' => '"$(SRCROOT)/Postal/dependencies/build/ios/include"'
     }
-    s.osx.pod_target_xcconfig = {
+    sp.osx.pod_target_xcconfig = {
       'SWIFT_INCLUDE_PATHS' => '"$(SRCROOT)/Postal/dependencies" "$(SRCROOT)/Postal/dependencies/build/macos/include"',
       'LIBRARY_SEARCH_PATHS' => '"$(SRCROOT)/Postal/dependencies/build/macos/lib"',
       'HEADER_SEARCH_PATHS' => '"$(SRCROOT)/Postal/dependencies/build/macos/include"'
