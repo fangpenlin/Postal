@@ -150,6 +150,22 @@ private class FetchContext {
     }
 }
 
+private class FetchPartContext {
+    var called = false
+    var handler: ((MailData) -> Void)!
+
+    init(handler: @escaping ((MailData) -> Void)) {
+        self.handler = { [weak self, handler] (data) in
+            handler(data)
+            guard let strongSelf = self else {
+                return
+            }
+            assert(!strongSelf.called)
+            strongSelf.called = true
+        }
+    }
+}
+
 extension IMAPSession {
     func fetchLast(_ folder: String, last: UInt, flags: FetchFlag, extraHeaders: Set<String> = [], handler: @escaping (FetchResult) -> Void) throws {
         let info = try select(folder, forceSelect: true)
@@ -224,23 +240,44 @@ extension IMAPSession {
         let attList = mailimap_fetch_type_new_fetch_att(bodyPeekSection)
         defer { mailimap_fetch_type_free(attList) }
         
-        var context = FetchContext(flags: [ .body ]) { fetchResult in
-            // forward to handler
-            fetchResult.body?.allParts.forEach { singlePart in
-                guard let data = singlePart.data else { return }
-                handler(data)
-            }
+        var context = FetchPartContext { (data) in
+            handler(data)
         }
         
         mailimap_set_msg_att_handler(imap, { message, context in
             autoreleasepool {
-                guard let fetchContext = context?.assumingMemoryBound(to: FetchContext.self).pointee else { return }
-                
-                let builder = FetchResultBuilder(flags: fetchContext.flags)
-                
-                guard let result = message?.pointee.parse(builder) else { return }
-                
-                fetchContext.handler(result)
+                guard
+                    let fetchContext = context?.assumingMemoryBound(to: FetchPartContext.self).pointee,
+                    let attList = message?.pointee.att_list
+                else {
+                    return
+                }
+
+                // Notice: this used to be using FetchResultBuilder for parsing
+                //         the attachment part, and it seems like trying to
+                //         guess the body payload with `mailmime_parse`. For
+                //         some payload format, like css "width: ...", the
+                //         function will thought it's mime header, and end up
+                //         with wrong payload data.
+                sequence(attList, of: mailimap_msg_att_item.self).forEach { item in
+                    switch Int(item.att_type) {
+                    case MAILIMAP_MSG_ATT_ITEM_STATIC:
+                        guard let attStatic = item.att_data.att_static else {
+                            return
+                        }
+                        switch Int(attStatic.pointee.att_type) {
+                        case MAILIMAP_MSG_ATT_BODY_SECTION:
+                            let bodySection = attStatic.pointee.att_data.att_body_section.pointee
+                            let rawData = Data(bytes: UnsafeRawPointer(bodySection.sec_body_part), count: bodySection.sec_length)
+                            let mailData = MailData(rawData: rawData, encoding: .binary)
+                            fetchContext.handler(mailData)
+                        default:
+                            break
+                        }
+                    default:
+                        break
+                    }
+                }
             }
         }, &context)
         defer { mailimap_set_msg_att_handler(imap, nil, nil) }
@@ -254,6 +291,10 @@ extension IMAPSession {
         var results: UnsafeMutablePointer<clist>? = nil
         try mailimap_uid_fetch(imap, imapSet, attList, &results).toIMAPError?.check()
         do { mailimap_fetch_list_free(results) }
+        
+        if !context.called {
+            throw PostalError.parse;
+        }
     }
 }
 
